@@ -1,0 +1,16 @@
+version: '3.2'
+services:
+  example_app:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/local/Dockerfile
+    volumes:
+     - ./code:/var/www
+    ports:
+     - "80:80"
+     - "443:443"
+    environment:
+      # XDebug CLI env var
+      XDEBUG_CONFIG: remote_host=${OGP_XDEBUG_HOST:-10.254.254.254}
+      # My Env Var to replace the IP in the xdebug.ini config with the IP on your host machine (look at docker_up.sh)
+      OGP_XDEBUG_HOST: ${OGP_XDEBUG_HOST:-10.254.254.254}
